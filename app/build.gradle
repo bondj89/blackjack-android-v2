@@ -10,7 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "Base_URL", '"https://deckofcardsapi.com"'
+        buildConfigField "String", "Base_URL", '"https://deckofcardsapi.com/"'
         buildConfigField "String", "STATIC_IMAGE_PATTERN", '"%1$sstatic/img/%2$s.png"'
         javaCompileOptions {
             annotationProcessorOptions {
