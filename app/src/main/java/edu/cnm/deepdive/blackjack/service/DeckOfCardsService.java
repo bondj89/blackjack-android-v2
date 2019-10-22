@@ -1,14 +1,10 @@
 package edu.cnm.deepdive.blackjack.service;
 
-import android.content.Context;
 import edu.cnm.deepdive.blackjack.BuildConfig;
-import edu.cnm.deepdive.blackjack.R;
 import edu.cnm.deepdive.blackjack.model.entity.Card;
 import edu.cnm.deepdive.blackjack.model.entity.Shoe;
 import edu.cnm.deepdive.blackjack.model.pojo.Draw;
 import io.reactivex.Single;
-import java.net.MalformedURLException;
-import java.net.URL;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
@@ -16,7 +12,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.HTTP;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -31,15 +26,11 @@ public interface DeckOfCardsService {
   @GET("api/deck/{shoeKey}/shuffle/")
   Single<Shoe> shuffle(@Path("shoeKey") String shoeKey);
 
-  default URL getImageUrl(Card card) {
-    try {
-      String baseUrl = BuildConfig.Base_URL;
-      String imagePattern = BuildConfig.STATIC_IMAGE_PATTERN;
-      String abbreviation = card.getAbbreviation();
-      return new URL(String.format(imagePattern, baseUrl, abbreviation));
-    } catch (MalformedURLException e) {
-      throw new RuntimeException(e);
-    }
+  static String getImageUrl(Card card) {
+    String baseUrl = BuildConfig.Base_URL;
+    String imagePattern = BuildConfig.STATIC_IMAGE_PATTERN;
+    String abbreviation = card.getAbbreviation();
+    return String.format(imagePattern, baseUrl, abbreviation);
   }
 
   static DeckOfCardsService getInstance() {
@@ -48,7 +39,7 @@ public interface DeckOfCardsService {
 
   class InstanceHolder {
 
-    public static final DeckOfCardsService INSTANCE;
+    private static final DeckOfCardsService INSTANCE;
 
     static {
       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
