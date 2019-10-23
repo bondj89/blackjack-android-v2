@@ -19,6 +19,6 @@ public interface CardDao {
   int update(Card card);
 
   @Update
-  int update(Card... cards);
+  int update(Card...cards);
 
 }
